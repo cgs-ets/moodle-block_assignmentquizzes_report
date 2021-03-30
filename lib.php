@@ -193,7 +193,7 @@ function can_view_on_profile()
     global $DB, $USER, $PAGE;
 
 
-    if ($PAGE->url->get_path() ==  '/moodledummy/user/profile.php') { // TODO: REMOVE THE dummy part.
+    if ($PAGE->url->get_path() ==  '/user/profile.php') { 
         // Admin is allowed.
         $profileuser = $DB->get_record('user', ['id' => $PAGE->url->get_param('id')]);
         
