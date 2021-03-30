@@ -67,4 +67,4 @@ $string['cohortmeanscore'] = 'Cohort Mean Score';
 $string['testdate'] = 'Test date';
 $string['rank'] = "Rank";
 
-$string['reportunavailable'] = 'Report unavailable';
+$string['reportunavailable'] = 'Assignments and quizzes report unavailable';
