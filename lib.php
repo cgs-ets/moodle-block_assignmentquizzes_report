@@ -34,15 +34,19 @@ function get_template_context($username)
  
     $moodleassignments = get_moodle_assignments_context($username);
     $quizzess = get_quizzes_context($username);
-    //  $assignments = get_assignments_context();
+    $assignments = get_assignments_context($username);
 
-    return array_merge($moodleassignments, $quizzess);
+    return array_merge($moodleassignments, $quizzess, $assignments);
 }
 
 function get_moodle_assignments_context($username)
 {
 
     $assignments = get_moodle_assignment_grades_by_id($username);
+
+    if (empty($assignments)) {
+        return [];
+    }
 
     $data = [];
 
@@ -51,7 +55,9 @@ function get_moodle_assignments_context($username)
         $assign->assignmentname =  $assignmnet->name;
         $assign->date =   date("d-m-Y", strtotime($assignmnet->timecreated));;
         $assign->coursename = $assignmnet->coursename;
-        $assign->score = "$assignmnet->grade ($assignmnet->outof)";
+        //$assign->score = "$assignmnet->grade ($assignmnet->outof)";
+        $assign->grade = $assignmnet->grade;
+        $assign->outof = $assignmnet->outof;
         $data['courses'][$assignmnet->coursename][] = $assign;
         $context = [];
 
@@ -67,6 +73,11 @@ function get_moodle_assignments_context($username)
 function get_quizzes_context($username)
 {
     $quizzes = get_moodle_quiz_data_by_id($username);
+
+    if (empty($quizzes)) {
+        return [];
+    }
+
     $data = [];
 
     foreach ($quizzes as $quizz) {
@@ -75,7 +86,8 @@ function get_quizzes_context($username)
         $q->coursenameq = $quizz->coursename;
         $q->timestart = date("d-m-Y h:i A", strtotime($quizz->timestart));
         $q->timefinish = date("d-m-Y h:i A", strtotime($quizz->timefinish));
-        $q->sumgrades = "$quizz->sumgrades ($quizz->maxmark)";
+        $q->sumgrades = $quizz->sumgrades;
+        $q->maxmark = $quizz->maxmark;
         $data['courses'][$quizz->coursename][] = $q;
         $context = [];
 
@@ -89,19 +101,53 @@ function get_quizzes_context($username)
     return $context;
 }
 
-function get_assignments_context()
+function get_assignments_context($username)
 {
-    $assignments = get_assignments_by_student_id();
-    // var_dump($assignments); exit;
+    $results = get_assignments_by_student_id($username);
+
+    if (empty($results)) {
+        return [];
+    }
+    
+    $assessments = [];
+    foreach($results as $result) {
+       
+        $assignmentsummary = new \stdClass();
+        $assignmentsummary->area = $result->classdesc;
+        $assignmentsummary->subject = $result->assessheading;
+        $assignmentsummary->assesnumber = substr($result->assessareahdgabbrev1, -1);
+        $assignmentsummary->assessareaoverview = $result->assessareaoverview;
+        $assignmentsummary->raw =  $result->raw;
+        $assignmentsummary->rank =  $result->rank;
+        $assignmentsummary->outof = $result->assessareamarkoutof;
+        $assignmentsummary->numberinclass = $result->numberinclass; // No.In Cohort.
+        $assignmentsummary->weighting = floatval(round($result->weighting, 2));
+        $assignmentsummary->meanscore = floatval(round( $result->meanscore, 2));
+        $assignmentsummary->testdate = (new \DateTime($result->testdate))->format('d-m-Y');
+        $assessments[$result->fileyear][$result->filesemester][] = $assignmentsummary;
+    }
+    
+   // Just focus on this years subjects for the prototype.
+   $curryear = date("Y");
+   $details = [];
+   foreach($assessments[$curryear] as $term => $assessment) {
+      
+        foreach($assessment as $i => $a) {
+            $details['details'][] = $a;
+        }
+
+   }
+
+  
+    return ($details); 
 }
 
 /**
  * Call to the SP 
  */
-function get_assignments_by_student_id()
+function get_assignments_by_student_id($username)
 {
-    global $USER;
-
+   
     try {
 
         $config = get_config('block_assignmentsquizzes_report');
@@ -115,12 +161,13 @@ function get_assignments_by_student_id()
         $sql = 'EXEC ' . $config->dbspassignments . ' :id';
 
         $params = array(
-            'id' => $USER->username,
+            'id' => $username,
         );
 
         $assignments = $externalDB->get_records_sql($sql, $params);
 
         return $assignments;
+
     } catch (\Exception $ex) {
         throw $ex;
     }
@@ -177,8 +224,7 @@ function get_moodle_assignment_grades_by_id($username)
         );
 
         $moodleassignments = $externalDB->get_records_sql($sql, $params);
-
-
+       
         return $moodleassignments;
 
     } catch (\Exception $ex) {
@@ -193,7 +239,7 @@ function can_view_on_profile()
     global $DB, $USER, $PAGE;
 
 
-    if ($PAGE->url->get_path() ==  '/user/profile.php') { 
+    if ($PAGE->url->get_path() ==   '/cgs/moodle/user/profile.php') { 
         // Admin is allowed.
         $profileuser = $DB->get_record('user', ['id' => $PAGE->url->get_param('id')]);
         

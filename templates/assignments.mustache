@@ -27,6 +27,7 @@ along with Moodle. If not, see
        <tr class="attheader">
           <th>{{#str}} learningarea, block_assignmentsquizzes_report {{/str}}</th>
           <th>{{#str}} assessheading, block_assignmentsquizzes_report {{/str}}</th>
+          <th>Assessment number</th>
           <th>{{#str}} assessmentdescription, block_assignmentsquizzes_report {{/str}}</th>
           <th>{{#str}} markoutof, block_assignmentsquizzes_report {{/str}}</th>
           <th>{{#str}} rank, block_assignmentsquizzes_report {{/str}}</th>
@@ -38,16 +39,21 @@ along with Moodle. If not, see
        </tr>
     </thead>
     <tbody>
-        {{#courses}}
-            {{#course}}
+        {{#details}}
+         
                 <tr>
-                    <td >{{coursename}}</td>
-                    <td>{{assignmentname}}</td>
-                    <td>{{date}}</td>
-                    <td>{{score}}</td>
+                    <td >{{area}}</td>
+                    <td>{{subject}}</td>
+                    <td>{{assesnumber}}</td>
+                    <td>{{assessareaoverview}}</td>
+                    <td><b>{{raw}}</b> ({{outof}})</td>
+                    <td>{{rank}}</td>
+                    <td>{{numberinclass}}</td>
+                    <td>{{weighting}}</td>
+                    <td>{{meanscore}}</td>
+                    <td>{{testdate}}</td>
                 </tr>
-            {{/course}}
-        {{/courses}}
+        {{/details}}
 
     </tbody>
  </table>
