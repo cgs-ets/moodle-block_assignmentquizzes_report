@@ -238,8 +238,9 @@ function can_view_on_profile()
 {
     global $DB, $USER, $PAGE;
 
-
-    if ($PAGE->url->get_path() ==   '/cgs/moodle/user/profile.php') { 
+     $config = get_config('block_assignmentsquizzes_report');
+     
+    if ($PAGE->url->get_path() ==  $config->profileurl) { 
         // Admin is allowed.
         $profileuser = $DB->get_record('user', ['id' => $PAGE->url->get_param('id')]);
         

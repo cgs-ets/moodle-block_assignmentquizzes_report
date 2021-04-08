@@ -57,4 +57,5 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext('block_assignmentsquizzes_report/dbspquizzbyid', get_string('dbspquizzbyid', 'block_assignmentsquizzes_report'), get_string('dbspquizzbyid_desc', 'block_assignmentsquizzes_report'), ''));
 
     $settings->add(new admin_setting_configtext('block_assignmentsquizzes_report/dbspassignments', get_string('dbspassignments', 'block_assignmentsquizzes_report'), get_string('dbspassignments_desc', 'block_assignmentsquizzes_report'), ''));
+    $settings->add(new admin_setting_configtext('block_assignmentsquizzes_report/profileurl', get_string('profileurl', 'block_assignmentsquizzes_report'), get_string('profileurl_desc', 'block_assignmentsquizzes_report'), ''));
 }

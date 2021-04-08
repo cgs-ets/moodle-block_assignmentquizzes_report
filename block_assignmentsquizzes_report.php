@@ -68,6 +68,7 @@ class block_assignmentsquizzes_report extends block_base
         $this->content->footer = '';
 
         try {
+
             if (assignmentsquizzes_report\can_view_on_profile()) {
                 $profileuser = $DB->get_record('user', ['id' => $PAGE->url->get_param('id')]);
                 $data = assignmentsquizzes_report\get_template_context($profileuser->username);
@@ -77,7 +78,7 @@ class block_assignmentsquizzes_report extends block_base
                 }
             }
         } catch (\Exception $e) {
-            
+           
         }
 
         return $this->content;

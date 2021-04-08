@@ -44,6 +44,9 @@ $string['dbspassignments'] = 'Student Assignments By ID SP';
 $string['dbspassignments_desc'] = 'Stored procedure name to retrieve student Assignments  by student ID';
 $string['nodbsettings'] = 'Please configure the DB options for the plugin';
 
+$string['profileurl'] = 'Profile URL';
+$string['profileurl_desc'] =' Moodle\'s profile URL';
+
 $string['reportlabel'] = 'Assignments & Quizzes';
 $string['course'] = 'Course';
 $string['assignmentname'] = 'Assignment Name';
@@ -68,3 +71,4 @@ $string['testdate'] = 'Test date';
 $string['rank'] = "Rank";
 
 $string['reportunavailable'] = 'Assignments and quizzes report unavailable';
+
