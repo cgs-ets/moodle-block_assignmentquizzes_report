@@ -15,14 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Assignmentsquizzes_report block
- *
- * @package   block_assignmentsquizzes_report
  * @copyright 2021 Veronica Bermegui
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
+
+namespace block_assignmentsquizzes_report\external;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'block_assignmentsquizzes_report';
-$plugin->version = 20210420;
-$plugin->requires = 2010112400;
+require_once($CFG->libdir . '/externallib.php');
+
+use external_api;
+
+class api extends external_api
+{
+    use get_connect_assign_context;
+    use get_connect_quizz_context;
+}

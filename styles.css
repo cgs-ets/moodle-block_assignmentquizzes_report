@@ -1,0 +1,11 @@
+.areaheading {
+    background-color: #66A8D8;
+}
+
+span#connectassignment-show {
+    display: none;
+  }
+  
+  span#connectquizz-show {
+    display: none;
+  }

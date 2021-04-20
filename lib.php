@@ -31,19 +31,16 @@ namespace assignmentsquizzes_report;
 
 function get_template_context($username)
 {
- 
-    $moodleassignments = get_moodle_assignments_context($username);
-    $quizzess = get_quizzes_context($username);
     $assignments = get_assignments_context($username);
-
-    return array_merge($moodleassignments, $quizzess, $assignments);
+    $assignments->username = $username;
+    return $assignments; 
 }
 
 function get_moodle_assignments_context($username)
 {
 
     $assignments = get_moodle_assignment_grades_by_id($username);
-
+    
     if (empty($assignments)) {
         return [];
     }
@@ -108,12 +105,10 @@ function get_assignments_context($username)
     if (empty($results)) {
         return [];
     }
-    
+
     $assessments = [];
-    foreach($results as $result) {
-       
+    foreach ($results as $result) {
         $assignmentsummary = new \stdClass();
-        $assignmentsummary->area = $result->classdesc;
         $assignmentsummary->subject = $result->assessheading;
         $assignmentsummary->assesnumber = substr($result->assessareahdgabbrev1, -1);
         $assignmentsummary->assessareaoverview = $result->assessareaoverview;
@@ -122,24 +117,26 @@ function get_assignments_context($username)
         $assignmentsummary->outof = $result->assessareamarkoutof;
         $assignmentsummary->numberinclass = $result->numberinclass; // No.In Cohort.
         $assignmentsummary->weighting = floatval(round($result->weighting, 2));
-        $assignmentsummary->meanscore = floatval(round( $result->meanscore, 2));
-        $assignmentsummary->testdate = (new \DateTime($result->testdate))->format('d-m-Y');
-        $assessments[$result->fileyear][$result->filesemester][] = $assignmentsummary;
+        $assignmentsummary->meanscore = floatval(round($result->meanscore, 2));
+        $assignmentsummary->testdate = (new \DateTime($result->testdate))->format('d/m/Y');
+        $assessments[$result->fileyear][$result->filesemester][$result->classlearningareadescription][] = $assignmentsummary;
     }
+
+    // Just focus on this years subjects for the prototype.
+    $curryear = date("Y");
+    $aux = new \stdClass();
+    $aux->details = [];
     
-   // Just focus on this years subjects for the prototype.
-   $curryear = date("Y");
-   $details = [];
-   foreach($assessments[$curryear] as $term => $assessment) {
-      
-        foreach($assessment as $i => $a) {
-            $details['details'][] = $a;
+    foreach ($assessments as $year => $assessment) {
+        if ($year != $curryear) continue; // For the prototype just display the current year assignments
+        foreach ($assessment as $term => $assess) {
+            foreach ($assess as $area => $detail) {
+                $aux->details['subjects'][] = ['subject' => $detail, 'area' => $area];
+            }
         }
-
-   }
-
-  
-    return ($details); 
+    }
+   
+    return $aux;
 }
 
 /**
@@ -147,7 +144,7 @@ function get_assignments_context($username)
  */
 function get_assignments_by_student_id($username)
 {
-   
+
     try {
 
         $config = get_config('block_assignmentsquizzes_report');
@@ -167,7 +164,6 @@ function get_assignments_by_student_id($username)
         $assignments = $externalDB->get_records_sql($sql, $params);
 
         return $assignments;
-
     } catch (\Exception $ex) {
         throw $ex;
     }
@@ -206,7 +202,7 @@ function get_moodle_quiz_data_by_id($username)
  */
 function get_moodle_assignment_grades_by_id($username)
 {
-   
+
     try {
 
         $config = get_config('block_assignmentsquizzes_report');
@@ -224,9 +220,8 @@ function get_moodle_assignment_grades_by_id($username)
         );
 
         $moodleassignments = $externalDB->get_records_sql($sql, $params);
-       
-        return $moodleassignments;
 
+        return $moodleassignments;
     } catch (\Exception $ex) {
         throw $ex;
     }
@@ -238,16 +233,16 @@ function can_view_on_profile()
 {
     global $DB, $USER, $PAGE;
 
-     $config = get_config('block_assignmentsquizzes_report');
-     
-    if ($PAGE->url->get_path() ==  $config->profileurl) { 
+    $config = get_config('block_assignmentsquizzes_report');
+
+    if ($PAGE->url->get_path() ==  $config->profileurl) {
         // Admin is allowed.
         $profileuser = $DB->get_record('user', ['id' => $PAGE->url->get_param('id')]);
-        
+
         if (is_siteadmin($USER) && $profileuser->username != $USER->username) {
             return true;
         }
-        
+
         // Students are allowed to see timetables in their own profiles.
         if ($profileuser->username == $USER->username && !is_siteadmin($USER)) {
             return true;
@@ -279,7 +274,6 @@ function can_view_on_profile()
                 return true;
             }
         }
-
     }
 
     return false;

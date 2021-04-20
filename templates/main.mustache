@@ -21,45 +21,62 @@ along with Moodle. If not, see
 
 }}
 
-<section class="node_category card d-inline-block w-100 mb-3">
+<section data-username={{username}} class="connect-assign-quizz">
     <div class="card-body">
-        <h3 class="lead">{{#str}} pluginname, block_assignmentsquizzes_report {{/str}}</h3>
+        <h3 class="lead">{{#str}} assigquiz_report, block_assignmentsquizzes_report {{/str}}</h3>
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <dl>
-                        <dt>{{#str}}assignments, block_assignmentsquizzes_report{{/str}}</dt> <br>
+                        <dt></dt> <br>
                         <dd>
                             <ul class="badges">
                                 {{> block_assignmentsquizzes_report/assignments}}
                             </ul>
                         </dd>
                     </dl>
-                </div> 
-                <div class="col-lg-12">
-                    <dl>
-                        <dt>{{#str}}moodleassing, block_assignmentsquizzes_report{{/str}}</dt> <br>
-                        <dd>
-                            <ul class="badges">
-                             {{> block_assignmentsquizzes_report/quizzes}}
-                            </ul>
-                        </dd>
-                    </dl>
                 </div>
-                <div class="col-lg-12">
-                    <dl>
-                        <dt>{{#str}}moodlequiz, block_assignmentsquizzes_report{{/str}}</dt> <br>
-                        <dd>
-                            <ul class="badges">
-                                
-                                   {{> block_assignmentsquizzes_report/moodleassignments}}
-                            </ul>
-                        </dd>
-                    </dl>
+                <div>
+
+                    <a href="#" data-toggle="collapse" data-target="#collapseconnectassignments" aria-expanded="false"
+                        aria-controls="collapseconnectassignments" class="connect-assignment">
+                        <div class="badge-actions"></div>
+                        <span class="badge-name">{{#str}}moodleassing, block_assignmentsquizzes_report{{/str}} </span>
+                        <span id="connectassignment-hide" class="fa fa-caret-right badge-name"></span>
+                        <span id="connectassignment-show" class="fa fa-caret-down badge-name"></span>
+                    </a>
+                    <div class='collapse' id="collapseconnectassignments">
+                        <br>
+                        <div data-region="connect-assignment"></div>
+                        <div class='spinner-border  text-primary' id="connect-assignment-table" hidden>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+
+                    <a href="#" data-toggle="collapse" data-target="#collapseconnectquizz" aria-expanded="false"
+                        aria-controls="collapseconnectquizzes" class="connect-quizz">
+                      
+                        <div class="badge-actions"></div>
+                        <span class="badge-name">{{#str}}moodlequiz, block_assignmentsquizzes_report{{/str}} </span>
+                        <span id="connectquizz-hide" class="fa fa-caret-right badge-name"></span>
+                        <span id="connectquizz-show" class="fa fa-caret-down badge-name"></span>
+                    </a>
+
+                    <div class='collapse ' id="collapseconnectquizz">
+                        <br>
+                        <div data-region="connect-quizz"></div>
+                        <div class='spinner-border  text-primary' id="connect-quizz-table" hidden>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-   
 
         </div>
     </div>
 </section>
+
+{{#js}}
+require(['block_assignmentsquizzes_report/control'], function(mod) {
+mod.init();
+});
+{{/js}}

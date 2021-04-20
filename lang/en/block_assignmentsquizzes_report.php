@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Assignments & Quizzes Report';
 $string['pluginname_desc'] = 'This plugin depends on DW.';
-$string['attendance_report'] = 'Assignments & Quizzes Report';
+$string['assigquiz_report'] = 'Assignments';
 $string['attendance_report:addinstance'] = 'Add a new Assignments & Quizzes report block';
 $string['attendance_report:myaddinstance'] = 'Add a new Assignments & Quizzes report block to My Moodle page';
 $string['dbtype'] = 'Database driver';
@@ -50,23 +50,23 @@ $string['profileurl_desc'] =' Moodle\'s profile URL';
 $string['reportlabel'] = 'Assignments & Quizzes';
 $string['course'] = 'Course';
 $string['assignmentname'] = 'Assignment Name';
-$string['date'] = 'Date';
+$string['date'] = 'Due';
 $string['score'] = 'Score (Out of)';
 $string['assignments'] = 'Assignments';
 
-$string['moodlequiz'] = 'Moodle Quizzes';
-$string['moodleassing'] = 'Moodle Assignments';
+$string['moodlequiz'] = 'CGS Connect Quizzes';
+$string['moodleassing'] = 'CGS Connect Assignments';
 $string['quizname'] = 'Quiz name';
 $string['quizstarted'] = 'Started';
 $string['quizfinished'] = 'Finished';
 
 $string['learningarea'] = 'Learning area';
-$string['assessheading'] = 'Assess Heading';
+$string['assessheading'] = 'Course';
 $string['assessmentdescription'] = 'Assessment description';
 $string['markoutof'] = 'Mark (Out of)';
 $string['noincohort'] = 'No. in Cohort';
-$string['weighting'] = 'Weighting';
-$string['cohortmeanscore'] = 'Cohort Mean Score';
+$string['weighting'] = 'Weighting (%)';
+$string['cohortmeanscore'] = 'Cohort Mean';
 $string['testdate'] = 'Test date';
 $string['rank'] = "Rank";
 

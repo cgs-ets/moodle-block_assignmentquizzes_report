@@ -30,29 +30,33 @@ along with Moodle. If not, see
           <th>Assessment number</th>
           <th>{{#str}} assessmentdescription, block_assignmentsquizzes_report {{/str}}</th>
           <th>{{#str}} markoutof, block_assignmentsquizzes_report {{/str}}</th>
-          <th>{{#str}} rank, block_assignmentsquizzes_report {{/str}}</th>
-          <th>{{#str}} noincohort, block_assignmentsquizzes_report {{/str}}</th>
-          <th>{{#str}} weighting, block_assignmentsquizzes_report {{/str}}</th>
+          <th>{{#str}} rank, block_assignmentsquizzes_report {{/str}}/{{#str}} noincohort, block_assignmentsquizzes_report {{/str}}</th>
           <th>{{#str}} cohortmeanscore, block_assignmentsquizzes_report {{/str}}</th>
+          <th>{{#str}} weighting, block_assignmentsquizzes_report {{/str}}</th>
           <th>{{#str}} testdate, block_assignmentsquizzes_report {{/str}}</th>
           
        </tr>
     </thead>
     <tbody>
         {{#details}}
-         
+             {{#subjects}}
                 <tr>
-                    <td >{{area}}</td>
-                    <td>{{subject}}</td>
-                    <td>{{assesnumber}}</td>
-                    <td>{{assessareaoverview}}</td>
-                    <td><b>{{raw}}</b> ({{outof}})</td>
-                    <td>{{rank}}</td>
-                    <td>{{numberinclass}}</td>
-                    <td>{{weighting}}</td>
-                    <td>{{meanscore}}</td>
-                    <td>{{testdate}}</td>
+                    <td  class="areaheading">{{area}}</td>
                 </tr>
+                    {{#subject}}
+                    <tr>
+                        <td></td>
+                        <td>{{subject}}</td>
+                        <td>{{assesnumber}}</td>
+                        <td>{{assessareaoverview}}</td>
+                        <td><b>{{raw}}</b> ({{outof}})</td>
+                        <td>{{rank}}/{{numberinclass}}</td>
+                        <td>{{meanscore}}</td>
+                        <td>{{weighting}}</td>
+                        <td>{{testdate}}</td>
+                    </tr>
+                    {{/subject}}
+                {{/subjects}}
         {{/details}}
 
     </tbody>
