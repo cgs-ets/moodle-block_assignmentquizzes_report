@@ -71,4 +71,5 @@ $string['testdate'] = 'Test date';
 $string['rank'] = "Rank";
 
 $string['reportunavailable'] = 'Assignments and quizzes report unavailable';
+$string['nodataavailable'] = '<p> No data available </p>';
 

@@ -68,9 +68,13 @@ trait get_connect_quizz_context
         
         // Get the context for the template.
         $ctx = \assignmentsquizzes_report\get_quizzes_context($username);
-        $output = $PAGE->get_renderer('core');
-
-        $html =  $output->render_from_template('block_assignmentsquizzes_report/quizzes', $ctx);
+        
+        if (empty($ctx)) {
+            $html = get_string('nodataavailable', 'block_assignmentsquizzes_report');
+        } else {
+            $output = $PAGE->get_renderer('core');
+            $html =  $output->render_from_template('block_assignmentsquizzes_report/quizzes', $ctx);
+        }
         return array(
             'html' => $html,
         );

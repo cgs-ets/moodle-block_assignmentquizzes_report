@@ -69,9 +69,14 @@ trait get_connect_assign_context
         
         // Get the context for the template.
         $ctx = \assignmentsquizzes_report\get_moodle_assignments_context($username);
-        $output = $PAGE->get_renderer('core');
 
-        $html =  $output->render_from_template('block_assignmentsquizzes_report/moodleassignments', $ctx);
+        if (empty($ctx)) {
+            $html =  get_string('nodataavailable', 'block_assignmentsquizzes_report');
+        } else {
+            $output = $PAGE->get_renderer('core');
+            $html =  $output->render_from_template('block_assignmentsquizzes_report/moodleassignments', $ctx);
+        }
+
         return array(
             'html' => $html,
         );
