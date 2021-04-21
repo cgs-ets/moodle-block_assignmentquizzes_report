@@ -50,7 +50,7 @@ function get_moodle_assignments_context($username)
     foreach ($assignments as $assignmnet) {
         $assign = new \stdClass();
         $assign->assignmentname =  $assignmnet->name;
-        $assign->date =   date("d-m-Y", strtotime($assignmnet->timecreated));;
+        $assign->date =   date("d/m/Y", strtotime($assignmnet->timecreated));;
         $assign->coursename = $assignmnet->coursename;
         //$assign->score = "$assignmnet->grade ($assignmnet->outof)";
         $assign->grade = $assignmnet->grade;
@@ -81,8 +81,8 @@ function get_quizzes_context($username)
         $q = new \stdClass();
         $q->quizname =  $quizz->quizname;
         $q->coursenameq = $quizz->coursename;
-        $q->timestart = date("d-m-Y h:i A", strtotime($quizz->timestart));
-        $q->timefinish = date("d-m-Y h:i A", strtotime($quizz->timefinish));
+        $q->timestart = date("d/m/Y h:i A", strtotime($quizz->timestart));
+        $q->timefinish = date("d/m/Y h:i A", strtotime($quizz->timefinish));
         $q->sumgrades = $quizz->sumgrades;
         $q->maxmark = $quizz->maxmark;
         $data['courses'][$quizz->coursename][] = $q;
