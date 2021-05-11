@@ -1,11 +1,24 @@
 .areaheading {
-    background-color: #66A8D8;
+  background-color: #66a8d8;
 }
 
 span#connectassignment-show {
-    display: none;
+  display: none;
+}
+
+span#connectquizz-show {
+  display: none;
+}
+
+table.feedbackfilestv th, table.feedbackfilestv td {
+  padding: 0rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  section.block.block_assignmentsquizzes_report.card.mb-3 {
+    clear: both;
   }
-  
-  span#connectquizz-show {
-    display: none;
-  }
+}
+
+
+

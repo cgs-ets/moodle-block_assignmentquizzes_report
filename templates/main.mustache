@@ -55,7 +55,7 @@ along with Moodle. If not, see
 
                     <a href="#" data-toggle="collapse" data-target="#collapseconnectquizz" aria-expanded="false"
                         aria-controls="collapseconnectquizzes" class="connect-quizz">
-                      
+
                         <div class="badge-actions"></div>
                         <span class="badge-name">{{#str}}moodlequiz, block_assignmentsquizzes_report{{/str}} </span>
                         <span id="connectquizz-hide" class="fa fa-caret-right badge-name"></span>
@@ -71,12 +71,12 @@ along with Moodle. If not, see
                     </div>
                 </div>
 
+            </div>
         </div>
-    </div>
 </section>
 
 {{#js}}
-require(['block_assignmentsquizzes_report/control'], function(mod) {
-mod.init();
+require(['block_assignmentsquizzes_report/control'], function(Mod) {
+Mod.init();
 });
 {{/js}}

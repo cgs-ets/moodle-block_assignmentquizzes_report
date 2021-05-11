@@ -41,9 +41,8 @@ class block_assignmentsquizzes_report extends block_base
             return $this->content;
         }
 
-
         $config = get_config('block_assignmentsquizzes_report');
-
+        
         // Check DB settings are available
         if (
             empty($config->dbtype) ||
@@ -72,7 +71,6 @@ class block_assignmentsquizzes_report extends block_base
             if (assignmentsquizzes_report\can_view_on_profile()) {
                 $profileuser = $DB->get_record('user', ['id' => $PAGE->url->get_param('id')]);
                 $data = assignmentsquizzes_report\get_template_context($profileuser->username);
-           
                 if (!empty($data)) {
                     $this->content->text = $OUTPUT->render_from_template('block_assignmentsquizzes_report/main', $data);
                 }
@@ -80,7 +78,7 @@ class block_assignmentsquizzes_report extends block_base
         } catch (\Exception $e) {
            
         }
-
+       
         return $this->content;
     }
 
@@ -96,11 +94,12 @@ class block_assignmentsquizzes_report extends block_base
 
     public function has_config()
     {
-        return true;
+        return false;
     }
 
     public function hide_header()
     {
         return true;
     }
+
 }

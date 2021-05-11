@@ -38,6 +38,8 @@ $string['dbuser'] = 'Database user';
 $string['dbpass'] = 'Database password';
 $string['dbspmoodleassign'] = 'Moodle assignment grades by id';
 $string['dbspmoodleassign_desc'] = 'Stored procedure name to retrieve student Moodle assignments grades by student ID';
+$string['dbspmoodleassignfeedback'] = 'Moodle assignment feedback';
+$string['dbspmoodleassignfeedback_desc'] = 'Stored procedure name to retrieve student Moodle assignments feedback';
 $string['dbspquizzbyid'] = 'Moodle quiz data by id';
 $string['dbspquizzbyid_desc'] = 'Stored procedure name to retrieve student Moodle quizzes grades by student ID';
 $string['dbspassignments'] = 'Student Assignments By ID SP';
@@ -53,6 +55,8 @@ $string['assignmentname'] = 'Assignment Name';
 $string['date'] = 'Due';
 $string['score'] = 'Score (Out of)';
 $string['assignments'] = 'Assignments';
+$string['feedbackcomment'] = 'Feedback comments ';
+$string['feedbackfiles'] = 'Feedback files ';
 
 $string['moodlequiz'] = 'CGS Connect Quizzes';
 $string['moodleassing'] = 'CGS Connect Assignments';

@@ -14,13 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
  * @package   block_assignmentsquizzes_report
  * @copyright 2021 Veronica Bermegui
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
- define(['jquery', 'core/ajax', 'core/log'], function ($, Ajax, Log) {
+define(['jquery', 'core/ajax', 'core/log'], function ($, Ajax, Log) {
     'use strict';
 
     function init() {
@@ -48,6 +49,8 @@
     Controls.prototype.main = function () {
         let self = this;
         self.setupEvents();
+        self.init_tree('feedback_files_tree');
+
     };
 
 
@@ -60,6 +63,10 @@
 
         $('.connect-assignment').click(function () {
             $(this).trigger('custom.getConnectAssign');
+        });
+
+        $('.connect-assignment').on('custom.renderFeedbackTree', function () {
+            self.init_tree();
         });
 
         $('.connect-assignment').on('custom.assignHideCarretHandler', function () {
@@ -101,6 +108,7 @@
 
                 $('#connect-assignment-table').attr('hidden', true);
                 region.replaceWith(htmlResult);
+                self.render_feedback_file_tree();
             },
 
             fail: function (reason) {
@@ -115,9 +123,10 @@
             $(this).trigger("custom.assignHideCarretHandler");
         });
 
+
     };
 
-    
+
     Controls.prototype.getConnectQuizz = function () {
         let self = this;
         const username = self.username;
@@ -148,7 +157,7 @@
             }
         }]);
 
-         $('.connect-quizz').off('custom.getConnectQuizz'); // Remove listener.
+        $('.connect-quizz').off('custom.getConnectQuizz'); // Remove listener.
 
         $('.connect-quizz').on('click', function () {
             $(this).trigger("custom.quizzHideCarretHandler");
@@ -168,6 +177,48 @@
         $('#connectquizz-hide').toggle(); // Carret right. (Table is hidden)
         $('#connectquizz-show').toggle(); // Carret down. (Table is displayed)
     }
+
+    Controls.prototype.render_feedback_file_tree = function () {
+        var self = this;
+
+        $('#connectassignrep').children().each(function (e) {
+            $(this).find('td:last').children().each(function (i) {
+                let treecol = ($(this).first()[i]);
+                let htmlid = $(treecol).attr('id');
+
+                self.init_tree(htmlid);
+            });
+
+        });
+    }
+
+    Controls.prototype.init_tree = function (htmlid) {
+        var treeElement = Y.one('#' + htmlid);
+       
+        if (treeElement) {
+            Y.use('yui2-treeview', 'node-event-simulate', function (Y) {
+                var tree = new Y.YUI2.widget.TreeView(htmlid);
+                tree.subscribe("clickEvent", function (node, event) {
+                    // We want normal clicking which redirects to url.
+                    return false;
+                });
+
+                tree.subscribe("enterKeyPressed", function (node) {
+                    // We want keyboard activation to trigger a click on the first link.
+                    Y.one(node.getContentEl()).one('a').simulate('click');
+                    return false;
+                });
+                
+                tree.setNodesProperty('className', 'feedbackfilestv', false);
+                
+                console.log(tree);
+                // tree.expandAll();
+                tree.render();
+            });
+        }
+
+    }
+
 
     return { init: init }
 });

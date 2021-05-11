@@ -22,18 +22,19 @@ along with Moodle. If not, see
 }}
 
 
-<table class="table table-striped table-responsive text-center">
+<table class="table table-striped table-responsive moodle-assign-table text-center">
     <thead>
        <tr class="attheader">
           <th>{{#str}} course, block_assignmentsquizzes_report {{/str}}</th>
           <th>{{#str}} assignmentname, block_assignmentsquizzes_report {{/str}}</th>
           <th>{{#str}} date, block_assignmentsquizzes_report {{/str}}</th>
           <th>{{#str}} score, block_assignmentsquizzes_report {{/str}}</th>
-
+          <th>{{#str}} feedbackcomment, block_assignmentsquizzes_report {{/str}}</th>
+          <th>{{#str}} feedbackfiles, block_assignmentsquizzes_report {{/str}}</th>
           
        </tr>
     </thead>
-    <tbody>
+    <tbody id="connectassignrep">
         {{#courses}}
             {{#course}}
                 <tr>
@@ -41,10 +42,21 @@ along with Moodle. If not, see
                     <td>{{assignmentname}}</td>
                     <td>{{date}}</td>
                     <td><b>{{grade}}</b> ({{outof}})</td>
-                  
+                    <td>{{commentfeedback}}</td>
+                    {{#filefeedback}}
+                        <td data-name="treefiles">
+                            {{#urls}}
+                            {{{url}}}
+                            {{/urls}}
+                        
+                        </td>
+                    {{/filefeedback}}
                 </tr>
             {{/course}}
         {{/courses}}
 
     </tbody>
  </table>
+
+       
+
