@@ -1,5 +1,5 @@
 .areaheading {
-   background-color: #66a8d8;
+    background-color: #66a8d8;
 }
 
 span#connectassignment-show {
@@ -25,11 +25,15 @@ table.moodle-assign-table {
 }
 
 section.block.block_assignmentsquizzes_report.card.mb-3 {
-    width: 50%;
+    width: 100%;
 }
 
-@media only screen and (max-width: 1024px) {
-    section.block.block_assignmentsquizzes_report.card.mb-3 {
-        clear: both;
+ @media only screen and (max-width: 900px) {
+
+    table.table.table-bordered.syn-assign,
+    table.moodle-assign-table {
+        width: 100%;
     }
+
 }
+
