@@ -12,7 +12,7 @@ span#connectquizz-show {
 
 table.feedbackfilestv th,
 table.feedbackfilestv td {
-    padding: 0rem;
+    padding: 0;
 }
 
 th.out-of-col {
@@ -28,7 +28,7 @@ section.block.block_assignmentsquizzes_report.card.mb-3 {
     width: 100%;
 }
 
- @media only screen and (max-width: 900px) {
+@media only screen and (max-width: 900px) {
 
     table.table.table-bordered.syn-assign,
     table.moodle-assign-table {
@@ -36,4 +36,3 @@ section.block.block_assignmentsquizzes_report.card.mb-3 {
     }
 
 }
-
