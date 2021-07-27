@@ -71,6 +71,7 @@ class block_assignmentsquizzes_report extends block_base
             if (assignmentsquizzes_report\can_view_on_profile()) {
                 $profileuser = $DB->get_record('user', ['id' => $PAGE->url->get_param('id')]);
                 $data = assignmentsquizzes_report\get_template_context($profileuser->username);
+              
                 if (!empty($data)) {
                     $this->content->text = $OUTPUT->render_from_template('block_assignmentsquizzes_report/main', $data);
                 }
@@ -94,7 +95,7 @@ class block_assignmentsquizzes_report extends block_base
 
     public function has_config()
     {
-        return false;
+        return true;
     }
 
     public function hide_header()

@@ -42,8 +42,8 @@ $string['dbspmoodleassignfeedback'] = 'Moodle assignment feedback';
 $string['dbspmoodleassignfeedback_desc'] = 'Stored procedure name to retrieve student Moodle assignments feedback';
 $string['dbspquizzbyid'] = 'Moodle quiz data by id';
 $string['dbspquizzbyid_desc'] = 'Stored procedure name to retrieve student Moodle quizzes grades by student ID';
-$string['dbspassignments'] = 'Student Assignments By ID SP';
-$string['dbspassignments_desc'] = 'Stored procedure name to retrieve student Assignments  by student ID';
+$string['dbspassignments'] = 'Student Synergetic Assignments by id SP';
+$string['dbspassignments_desc'] = 'Stored procedure name to retrieve Synergetic Assignments  by student by ID';
 $string['nodbsettings'] = 'Please configure the DB options for the plugin';
 
 $string['profileurl'] = 'Profile URL';
@@ -64,15 +64,12 @@ $string['quizname'] = 'Quiz name';
 $string['quizstarted'] = 'Started';
 $string['quizfinished'] = 'Finished';
 
-$string['learningarea'] = 'Learning area';
-$string['assessheading'] = 'Course';
 $string['assessmentdescription'] = 'Assessment description';
 $string['markoutof'] = 'Mark (Out of)';
-$string['noincohort'] = 'No. in Cohort';
 $string['weighting'] = 'Weighting (%)';
 $string['cohortmeanscore'] = 'Cohort Mean';
-$string['testdate'] = 'Test date';
-$string['rank'] = "Rank";
+$string['testdate'] = 'Date';
+$string['result'] = "Result";
 
 $string['reportunavailable'] = 'Assignments and quizzes report unavailable';
 $string['nodataavailable'] = '<p> No data available </p>';

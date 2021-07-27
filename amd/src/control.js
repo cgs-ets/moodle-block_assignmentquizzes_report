@@ -104,17 +104,15 @@ define(['jquery', 'core/ajax', 'core/log'], function ($, Ajax, Log) {
 
             done: function (response) {
                 const htmlResult = response.html;
-                const region = $('[data-region="connect-assignment"]');
-
                 $('#connect-assignment-table').attr('hidden', true);
-                region.replaceWith(htmlResult);
+                $('[data-region="connect-assignment"]').replaceWith(htmlResult);
                 self.render_feedback_file_tree();
             },
 
             fail: function (reason) {
                 Log.error('block_assignmentsquizzes_report: Unable to get context.');
                 Log.debug(reason);
-                region.replaceWith('<p class="alert alert-danger">Data not available. Please try later</p>');
+                $('[data-region="connect-assignment"]').replaceWith('<p class="alert alert-danger">Data not available. Please try later</p>');
             }
         }]);
 
@@ -144,16 +142,14 @@ define(['jquery', 'core/ajax', 'core/log'], function ($, Ajax, Log) {
 
             done: function (response) {
                 const htmlResult = response.html;
-                const region = $('[data-region="connect-quizz"]');
-
                 $('#connect-quizz-table').attr('hidden', true);
-                region.replaceWith(htmlResult);
+                $('[data-region="connect-quizz"]').replaceWith(htmlResult);
             },
 
             fail: function (reason) {
                 Log.error('block_assignmentsquizzes_report: Unable to get context.');
                 Log.debug(reason);
-                region.replaceWith('<p class="alert alert-danger">Data not available. Please try later</p>');
+                $('[data-region="connect-quizz"]').replaceWith('<p class="alert alert-danger">Data not available. Please try later</p>');
             }
         }]);
 
@@ -210,9 +206,6 @@ define(['jquery', 'core/ajax', 'core/log'], function ($, Ajax, Log) {
                 });
                 
                 tree.setNodesProperty('className', 'feedbackfilestv', false);
-                
-                console.log(tree);
-                // tree.expandAll();
                 tree.render();
             });
         }

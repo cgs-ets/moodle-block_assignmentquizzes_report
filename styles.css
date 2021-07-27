@@ -1,24 +1,35 @@
 .areaheading {
-  background-color: #66a8d8;
+   background-color: #66a8d8;
 }
 
 span#connectassignment-show {
-  display: none;
+    display: none;
 }
 
 span#connectquizz-show {
-  display: none;
+    display: none;
 }
 
-table.feedbackfilestv th, table.feedbackfilestv td {
-  padding: 0rem;
+table.feedbackfilestv th,
+table.feedbackfilestv td {
+    padding: 0rem;
+}
+
+th.out-of-col {
+    font-weight: initial;
+}
+
+table.table.table-bordered.syn-assign,
+table.moodle-assign-table {
+    max-width: fit-content;
+}
+
+section.block.block_assignmentsquizzes_report.card.mb-3 {
+    width: 50%;
 }
 
 @media only screen and (max-width: 1024px) {
-  section.block.block_assignmentsquizzes_report.card.mb-3 {
-    clear: both;
-  }
+    section.block.block_assignmentsquizzes_report.card.mb-3 {
+        clear: both;
+    }
 }
-
-
-

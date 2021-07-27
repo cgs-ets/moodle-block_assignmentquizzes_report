@@ -35,8 +35,8 @@ use templatable;
 
 function get_template_context($username)
 {
-    $assignments = get_assignments_context($username);
-    $assignments->username = $username;
+    $assignments = get_synergetic_assignment_context($username);
+    
     return $assignments;
 }
 
@@ -59,7 +59,7 @@ function get_moodle_assignments_context($username)
         $assign->grade = $assignmnet->grade;
         $assign->outof = $assignmnet->outof;
         $assign->filefeedback = get_assignments_feedback_context($username);
-        $assign->commentfeedback = 'Some feedback';
+        $assign->commentfeedback = '';
         $data['courses'][$assignmnet->coursename][] = $assign;
         $context = [];
 
@@ -103,51 +103,62 @@ function get_quizzes_context($username)
     return $context;
 }
 
-function get_assignments_context($username)
+function get_synergetic_assignment_context($username)
 {
-    $results = get_assignments_by_student_id($username);
+    $results = get_syn_assignments_by_student_id($username);
 
     if (empty($results)) {
         return [];
     }
 
     $assessments = [];
-    foreach ($results as $result) {
-        $assignmentsummary = new \stdClass();
-        $assignmentsummary->subject = $result->assessheading;
-        $assignmentsummary->assesnumber = substr($result->assessareahdgabbrev1, -1);
-        $assignmentsummary->assessareaoverview = $result->assessareaoverview;
-        $assignmentsummary->raw =  $result->raw;
-        $assignmentsummary->rank =  $result->rank;
-        $assignmentsummary->outof = $result->assessareamarkoutof;
-        $assignmentsummary->numberinclass = $result->numberinclass; // No.In Cohort.
-        $assignmentsummary->weighting = floatval(round($result->weighting, 2));
-        $assignmentsummary->meanscore = floatval(round($result->meanscore, 2));
-        $assignmentsummary->testdate = (new \DateTime($result->testdate))->format('d/m/Y');
+    $terms = ['username' => $username];
 
-        $assessments[$result->fileyear][$result->filesemester][$result->classlearningareadescription][] = $assignmentsummary;
+    foreach ($results as $result) {
+       
+        $assignmentsummary = new \stdClass();
+        $assignmentsummary->heading = $result->heading;
+        $assignmentsummary->result =  $result->result;
+        $assignmentsummary->outof = $result->markoutof;
+        $assignmentsummary->weighting = (floatval(round($result->weightingfactor, 2))) * 100;
+        $assignmentsummary->testdate = (new \DateTime($result->testdate))->format('d/m/Y');
+        $assessments[$result->term][$result->weeknumber][] = $assignmentsummary;
+
+    }
+   
+
+    $dummycell = new \stdClass();
+    $dummycell->t = '';
+    
+    for($i = 0; $i < 6; $i++) {
+        $dummycells[] = $dummycell;
     }
 
-    // Just focus on this years subjects for the prototype.
-    $curryear = date("Y");
-    $aux = new \stdClass();
-    $aux->details = [];
+    foreach ($assessments as $t => $weeks) {
+        
+        $term = new \stdClass();
+        $term->term = $t;
+        $term->dummycell = '';
+        $term->results = [];
 
-    foreach ($assessments as $year => $assessment) {
-        if ($year != $curryear) continue; // For the prototype just display the current year assignments
-        foreach ($assessment as $term => $assess) {
-            foreach ($assess as $area => $detail) {
-                $aux->details['subjects'][] = ['subject' => $detail, 'area' => $area];
+        foreach ($weeks as $wn => $assesment) {
+            foreach ($assesment as $assess) {
+                $assess->week = $wn;
+                $term->results[] = $assess;
             }
         }
-    }
 
-    return $aux;
+        $terms['assessments']['details'][] = $term;
+
+    }
+  
+    return $terms;
 }
 
 function get_assignments_feedback_context($username)
 {
     $results = get_moodle_assignments_feedback($username, 23125); // gradeid
+    
     if (empty($results)) {
         return [];
     }
@@ -169,7 +180,7 @@ function get_assignments_feedback_context($username)
 /**
  * Call to the SP 
  */
-function get_assignments_by_student_id($username)
+function get_syn_assignments_by_student_id($username)
 {
 
     try {
@@ -191,6 +202,7 @@ function get_assignments_by_student_id($username)
         $assignments = $externalDB->get_records_sql($sql, $params);
 
         return $assignments;
+
     } catch (\Exception $ex) {
         throw $ex;
     }
@@ -301,12 +313,12 @@ function can_view_on_profile()
             return true;
         }
 
-        // Students are allowed to see timetables in their own profiles.
+        // Students are allowed to see block in their own profiles.
         if ($profileuser->username == $USER->username && !is_siteadmin($USER)) {
             return true;
         }
 
-        // Parents are allowed to view timetables in their mentee profiles.
+        // Parents are allowed to view block in their mentee profiles.
         $mentorrole = $DB->get_record('role', array('shortname' => 'parent'));
 
         if ($mentorrole) {

@@ -53,10 +53,10 @@ $data = new stdClass();
 $profileuser = $DB->get_record('user', ['id' => $id]);
 
 if (is_siteadmin($USER)) {
-    $data->studentname = $profileuser->firstname . ' ' .  $profileuser->lastname;
+    $data->username = $profileuser->firstname . ' ' .  $profileuser->lastname;
 } else {
-    $data->studentname = $USER->firstname . ' ' .  $USER->lastname;
+    $data->username = $USER->firstname . ' ' .  $USER->lastname;
 }
 
-echo $OUTPUT->render_from_template('block_assignmentsquizzes_report/attendance_based_on_rollmarking', $data);
+echo $OUTPUT->render_from_template('block_assignmentsquizzes_report/main', $data);
 echo $OUTPUT->footer();

@@ -31,44 +31,62 @@ along with Moodle. If not, see
                         <dt></dt> <br>
                         <dd>
                             <ul class="badges">
-                                {{> block_assignmentsquizzes_report/assignments}}
+                                {{> block_assignmentsquizzes_report/synergeticassignments}}
                             </ul>
                         </dd>
+
+                        <dd>
+                            <div class="assign-quizz-container">
+                                <dl>
+                                    <dt></dt><br>
+                                    <dd>
+                                        <ul class="badges">
+                                            <a href="#" data-toggle="collapse" data-target="#collapseconnectassignments"
+                                                aria-expanded="false" aria-controls="collapseconnectassignments"
+                                                class="connect-assignment">
+                                                <div class="badge-actions"></div>
+                                                <span class="badge-name">{{#str}}moodleassing,
+                                                    block_assignmentsquizzes_report{{/str}} </span>
+                                                <span id="connectassignment-hide"
+                                                    class="fa fa-caret-right badge-name"></span>
+                                                <span id="connectassignment-show"
+                                                    class="fa fa-caret-down badge-name"></span>
+                                            </a>
+                                            <div class='collapse' id="collapseconnectassignments">
+                                                <br>
+                                                <div data-region="connect-assignment"></div>
+                                                <div class='spinner-border  text-primary' id="connect-assignment-table"
+                                                    hidden>
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+
+                                            <a href="#" data-toggle="collapse" data-target="#collapseconnectquizz"
+                                                aria-expanded="false" aria-controls="collapseconnectquizzes"
+                                                class="connect-quizz">
+
+                                                <div class="badge-actions"></div>
+                                                <span class="badge-name">{{#str}}moodlequiz,
+                                                    block_assignmentsquizzes_report{{/str}} </span>
+                                                <span id="connectquizz-hide"
+                                                    class="fa fa-caret-right badge-name"></span>
+                                                <span id="connectquizz-show" class="fa fa-caret-down badge-name"></span>
+                                            </a>
+
+                                            <div class='collapse ' id="collapseconnectquizz">
+                                                <br>
+                                                <div data-region="connect-quizz"></div>
+                                                <div class='spinner-border  text-primary' id="connect-quizz-table"
+                                                    hidden>
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </dd>
                     </dl>
-                </div>
-                <div>
-
-                    <a href="#" data-toggle="collapse" data-target="#collapseconnectassignments" aria-expanded="false"
-                        aria-controls="collapseconnectassignments" class="connect-assignment">
-                        <div class="badge-actions"></div>
-                        <span class="badge-name">{{#str}}moodleassing, block_assignmentsquizzes_report{{/str}} </span>
-                        <span id="connectassignment-hide" class="fa fa-caret-right badge-name"></span>
-                        <span id="connectassignment-show" class="fa fa-caret-down badge-name"></span>
-                    </a>
-                    <div class='collapse' id="collapseconnectassignments">
-                        <br>
-                        <div data-region="connect-assignment"></div>
-                        <div class='spinner-border  text-primary' id="connect-assignment-table" hidden>
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-
-                    <a href="#" data-toggle="collapse" data-target="#collapseconnectquizz" aria-expanded="false"
-                        aria-controls="collapseconnectquizzes" class="connect-quizz">
-
-                        <div class="badge-actions"></div>
-                        <span class="badge-name">{{#str}}moodlequiz, block_assignmentsquizzes_report{{/str}} </span>
-                        <span id="connectquizz-hide" class="fa fa-caret-right badge-name"></span>
-                        <span id="connectquizz-show" class="fa fa-caret-down badge-name"></span>
-                    </a>
-
-                    <div class='collapse ' id="collapseconnectquizz">
-                        <br>
-                        <div data-region="connect-quizz"></div>
-                        <div class='spinner-border  text-primary' id="connect-quizz-table" hidden>
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
                 </div>
 
             </div>
