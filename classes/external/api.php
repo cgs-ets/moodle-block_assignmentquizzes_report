@@ -32,5 +32,5 @@ class api extends external_api
 {
     use get_connect_assign_context;
     use get_connect_quizz_context;
-    //use get_synergetic_assign_context;
+    use get_synergetic_assign_context;
 }

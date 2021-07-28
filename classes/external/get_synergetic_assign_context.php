@@ -86,7 +86,7 @@ trait get_synergetic_assign_context
      * Describes the structure of the function return value.
      * @return external_single_structures
      */
-    public static function get_connect_assign_context_returns()
+    public static function get_synergetic_assign_context_returns()
     {
         return new external_single_structure(array(
             'html' =>  new external_value(PARAM_RAW, 'HTML with the synergetic assignment table context'),

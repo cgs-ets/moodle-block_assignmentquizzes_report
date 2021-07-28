@@ -48,6 +48,7 @@ define(['jquery', 'core/ajax', 'core/log'], function ($, Ajax, Log) {
      */
     Controls.prototype.main = function () {
         let self = this;
+        self.getSynAssign();
         self.setupEvents();
         self.init_tree('feedback_files_tree');
 
@@ -86,6 +87,38 @@ define(['jquery', 'core/ajax', 'core/log'], function ($, Ajax, Log) {
         });
 
     };
+
+    Controls.prototype.getSynAssign = function () {
+        let self = this;
+        const username = self.username;
+
+        // Add spinner.
+        $('#syn-assignment-table').removeAttr('hidden');
+
+        Ajax.call([{
+            methodname: 'block_assignment_quizz_report_get_syn_assign_context',
+            args: {
+                username: username
+            },
+
+            done: function (response) {
+                Log.debug(response);
+                 const htmlResult = response.html;
+                $('#syn-assignment-table').attr('hidden', true);
+                $('[data-region="syn-assignment"]').replaceWith(htmlResult);
+               
+            },
+
+            fail: function (reason) {
+                Log.error('block_assignmentsquizzes_report: Unable to get context.');
+                Log.debug(reason);
+                $('[data-region="syn-assignment"]').replaceWith('<p class="alert alert-danger">Data not available. Please try later</p>');
+            }
+        }]);
+
+        $('.syn-assignment').off('custom.getSynAssign'); // Remove listener.
+    
+    }
 
     Controls.prototype.getConnectAssign = function () {
         let self = this;

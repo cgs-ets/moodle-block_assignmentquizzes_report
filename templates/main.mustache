@@ -31,7 +31,11 @@ along with Moodle. If not, see
                         <dt></dt> <br>
                         <dd>
                             <ul class="badges">
-                                {{> block_assignmentsquizzes_report/synergeticassignments}}
+                                <div class='spinner-border  text-primary' id="syn-assignment-table">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div data-region="syn-assignment"></div>
+                         
                             </ul>
                         </dd>
 

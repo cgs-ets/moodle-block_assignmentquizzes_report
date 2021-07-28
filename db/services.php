@@ -34,6 +34,15 @@ $functions = [
         'loginrequired' => true,
         'ajax' => true    // Is this service available to 'internal' ajax calls.
     ],
+
+    'block_assignment_quizz_report_get_syn_assign_context' => [
+        'classname' => 'block_assignmentsquizzes_report\external\api', // Class containing a reference to the external function.
+        'methodname' => 'get_synergetic_assign_context', // External function name.
+        'description' => 'Get template context for Synergetic assignments table', // Human readable description of the WS function.
+        'type' => 'read', // DB rights of the WS function.
+        'loginrequired' => true,
+        'ajax' => true    // Is this service available to 'internal' ajax calls.
+    ],
     
     'block_assignment_quizz_report_get_connect_quizz_context' => [
         'classname' => 'block_assignmentsquizzes_report\external\api', // Class containing a reference to the external function.

@@ -24,5 +24,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_assignmentsquizzes_report';
-$plugin->version = 20210420;
+$plugin->version = 20210728;
 $plugin->requires = 2010112400;
