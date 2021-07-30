@@ -119,7 +119,8 @@ function get_synergetic_assignment_context($username)
         $assignmentsummary = new \stdClass();
         $assignmentsummary->heading = $result->heading;
         $assignmentsummary->result =  $result->result;
-        $assignmentsummary->outof = $result->markoutof;
+        $assignmentsummary->outof = $result->markoutof;   
+        $assignmentsummary->classdescription = $result->classdescription;   
         $assignmentsummary->weighting = (floatval(round($result->weightingfactor, 2))) * 100;
         $assignmentsummary->testdate = (new \DateTime($result->testdate))->format('d/m/Y');
         $assessments[$result->term][$result->weeknumber][] = $assignmentsummary;

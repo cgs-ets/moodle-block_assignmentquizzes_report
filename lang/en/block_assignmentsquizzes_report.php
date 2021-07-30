@@ -70,6 +70,10 @@ $string['weighting'] = 'Weighting (%)';
 $string['cohortmeanscore'] = 'Cohort Mean';
 $string['testdate'] = 'Date';
 $string['result'] = "Result";
+$string['term'] = 'Term';
+$string['week'] = 'Week';
+$string['subject'] = 'Subject';
+
 
 $string['reportunavailable'] = 'Assignments and quizzes report unavailable';
 $string['nodataavailable'] = '<p> No data available </p>';
